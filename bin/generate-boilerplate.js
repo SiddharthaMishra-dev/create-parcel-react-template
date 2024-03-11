@@ -21,7 +21,7 @@ const git_repo = "https://github.com/SiddharthaMishra-dev/create-parcel-react-ap
 
 try {
   fs.mkdirSync(projectPath);
-  console.log(cliSpinners.dots4);
+  console.log(ora(cliSpinners.dots2).start());
 } catch (err) {
   if (err.code === "EEXIST") {
     console.log(
@@ -49,6 +49,7 @@ const action = async () => {
   } catch (err) {
     console.log(err);
   }
+  ora().stop();
 };
 
 action();
