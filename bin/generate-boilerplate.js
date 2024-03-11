@@ -3,6 +3,7 @@
 import { execSync } from "child_process";
 import path from "path";
 import fs from "fs";
+import cliSpinners from "cli-spinners";
 
 if (process.argv.length < 3) {
   console.log("Provide name of your app.");
@@ -19,6 +20,7 @@ const git_repo = "https://github.com/SiddharthaMishra-dev/create-parcel-react-ap
 
 try {
   fs.mkdirSync(projectPath);
+  console.log(cliSpinners.dots4);
 } catch (err) {
   if (err.code === "EEXIST") {
     console.log(
@@ -32,14 +34,13 @@ try {
 
 const action = async () => {
   try {
-    console.log(`Downloading files`);
+    console.log(`Downloading files ${cliSpinners.dots4}`);
     execSync(`git clone --depth 1 ${git_repo} ${projectPath} `);
-
     process.chdir(projectPath);
-    console.log("Installing dependencies...");
+    console.log(`Installing dependencies ${cliSpinners.dots4}`);
     execSync(`pnpm install`);
 
-    console.log("Cleaning junk files");
+    console.log(`Cleaning junk files ${cliSpinners.dots4}`);
     execSync(`npx rimraf ./.git`);
     fs.rmSync(path.join(projectPath, "bin"), { recursive: true });
 
