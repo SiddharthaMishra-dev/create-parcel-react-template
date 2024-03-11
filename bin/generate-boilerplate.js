@@ -4,6 +4,7 @@ import { execSync } from "child_process";
 import path from "path";
 import fs from "fs";
 import cliSpinners from "cli-spinners";
+import ora from "ora";
 
 if (process.argv.length < 3) {
   console.log("Provide name of your app.");
@@ -34,13 +35,13 @@ try {
 
 const action = async () => {
   try {
-    console.log(`Downloading files ${cliSpinners.dots4}`);
+    console.log(`Downloading files ${ora(cliSpinners.dots2).start()}`);
     execSync(`git clone --depth 1 ${git_repo} ${projectPath} `);
     process.chdir(projectPath);
-    console.log(`Installing dependencies ${cliSpinners.dots4}`);
+    console.log(`Installing dependencies ${ora(cliSpinners.dots2).start()}`);
     execSync(`pnpm install`);
 
-    console.log(`Cleaning junk files ${cliSpinners.dots4}`);
+    console.log(`Cleaning junk files ${ora(cliSpinners.dots2).start()}`);
     execSync(`npx rimraf ./.git`);
     fs.rmSync(path.join(projectPath, "bin"), { recursive: true });
 
