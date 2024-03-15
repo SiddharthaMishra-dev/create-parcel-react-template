@@ -6,6 +6,8 @@ import fs from "fs";
 import cliSpinners from "cli-spinners";
 import ora from "ora";
 
+const spinner = ora();
+
 if (process.argv.length < 3) {
   console.log("Provide name of your app.");
   console.log("For example - ");
@@ -21,7 +23,6 @@ const git_repo = "https://github.com/SiddharthaMishra-dev/create-parcel-react-ap
 
 try {
   fs.mkdirSync(projectPath);
-  console.log(ora(cliSpinners.dots2).start());
 } catch (err) {
   if (err.code === "EEXIST") {
     console.log(
@@ -35,21 +36,26 @@ try {
 
 const action = async () => {
   try {
-    console.log(`Downloading files ${ora(cliSpinners.dots2).start()}`);
-    execSync(`git clone --depth 1 ${git_repo} ${projectPath} `);
+    console.log(`Downloading files`);
+    spinner.start();
+    await execSync(`git clone --depth 1 ${git_repo} ${projectPath} `);
     process.chdir(projectPath);
-    console.log(`Installing dependencies ${ora(cliSpinners.dots2).start()}`);
+    spinner.stop();
+    console.log(`Installing dependencies`);
+    spinner.start();
     execSync(`pnpm install`);
-
-    console.log(`Cleaning junk files ${ora(cliSpinners.dots2).start()}`);
+    spinner.stop();
+    console.log(`Cleaning junk files`);
+    spinner.start();
     execSync(`npx rimraf ./.git`);
     fs.rmSync(path.join(projectPath, "bin"), { recursive: true });
+    spinner.stop();
 
     console.log("Your app is ready!.");
+    spinner.succeed();
   } catch (err) {
     console.log(err);
   }
-  ora().stop();
 };
 
 action();
