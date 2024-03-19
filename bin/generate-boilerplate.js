@@ -1,10 +1,52 @@
 #!/usr/bin/env node
 
-import { execSync } from "child_process";
+import { exec } from "child_process";
 import path from "path";
 import fs from "fs";
-import cliSpinners from "cli-spinners";
 import ora from "ora";
+import util from "util";
+
+const promiseExec = util.promisify(exec);
+
+async function cloneRepo(git_repo, projectPath) {
+  const spinner = ora("Downloading files");
+  spinner.start();
+
+  try {
+    const { stdout, stderr } = await promiseExec(`git clone --depth 1 ${git_repo} ${projectPath} `);
+    console.log(stdout);
+  } finally {
+    spinner.succeed();
+  }
+}
+
+async function installDeps(projectPath) {
+  const spinner = ora("Installing dependencies");
+  spinner.start();
+  try {
+    process.chdir(projectPath);
+    const { stdout: installOut, stderr: installErr } = await promiseExec(`pnpm install`);
+    console.log(installOut);
+  } finally {
+    spinner.succeed();
+  }
+}
+
+async function cleaning(projectPath) {
+  const spinner = ora("Cleaning junk files");
+  spinner.start();
+  try {
+    const { stdout, stderr } = await promiseExec(`npx rimraf ./.git`);
+    await fs.rmSync(path.join(projectPath, "bin"), { recursive: true });
+    console.log(stdout);
+    const { stdout: uninstallOut, stderr: uninstallErr } = await promiseExec(
+      `pnpm uninstall rimraf cli-spinners ora`
+    );
+    console.log(uninstallOut);
+  } finally {
+    spinner.succeed();
+  }
+}
 
 const spinner = ora();
 
@@ -36,23 +78,9 @@ try {
 
 const action = async () => {
   try {
-    console.log(`Downloading files`);
-    spinner.start();
-    await execSync(`git clone --depth 1 ${git_repo} ${projectPath} `);
-    process.chdir(projectPath);
-    spinner.stop();
-    console.log(`Installing dependencies`);
-    spinner.start();
-    execSync(`pnpm install`);
-    spinner.stop();
-    console.log(`Cleaning junk files`);
-    spinner.start();
-    execSync(`npx rimraf ./.git`);
-    fs.rmSync(path.join(projectPath, "bin"), { recursive: true });
-    spinner.stop();
-
-    console.log("Your app is ready!.");
-    spinner.succeed();
+    await cloneRepo(git_repo, projectPath);
+    await installDeps(projectPath);
+    await cleaning(projectPath);
   } catch (err) {
     console.log(err);
   }
