@@ -25,7 +25,7 @@ async function installDeps(projectPath) {
   spinner.start();
   try {
     process.chdir(projectPath);
-    const { stdout: installOut, stderr: installErr } = await promiseExec(`pnpm install`);
+    const { stdout: installOut, stderr: installErr } = await promiseExec(`npm install`);
     console.log(installOut);
   } finally {
     spinner.succeed();
@@ -40,7 +40,7 @@ async function cleaning(projectPath) {
     await fs.rmSync(path.join(projectPath, "bin"), { recursive: true });
     console.log(stdout);
     const { stdout: uninstallOut, stderr: uninstallErr } = await promiseExec(
-      `pnpm uninstall rimraf cli-spinners ora`
+      `npm uninstall rimraf cli-spinners ora`
     );
     console.log(uninstallOut);
   } finally {
