@@ -53,7 +53,7 @@ const spinner = ora();
 if (process.argv.length < 3) {
   console.log("Provide name of your app.");
   console.log("For example - ");
-  console.log("   npx create-parcel-react-boilerplate myApp");
+  console.log("   npx create-parcel-react-app myApp");
   process.exit(1);
 }
 

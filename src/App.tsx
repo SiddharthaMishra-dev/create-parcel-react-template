@@ -12,7 +12,7 @@ const App = () => {
             <img
               src={parcel}
               alt="parcel"
-              className="h-40 w-40 object-cover object-center"
+              className="h-40 w-40 object-cover object-center drop-shadow-2xl"
             />
             <span className="text-2xl font-bold">+</span>
             <img
@@ -21,7 +21,7 @@ const App = () => {
               className="h-40 w-40 object-cover object-center"
             />
           </div>
-          <h1 className="text-center text-2xl sm:text-5xl font-bold">
+          <h1 className="text-center text-2xl sm:text-5xl font-bold drop-shadow-2xl">
             React + Parcel + Typescript
           </h1>
           <h4 className="text-center text-xl sm:text-2xl font-medium text-gray-700">
