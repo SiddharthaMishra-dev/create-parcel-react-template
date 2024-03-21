@@ -1,11 +1,11 @@
 {
-  "name": "create-parcel-react-app",
+  "name": "create-parcel-react-template",
   "version": "1.0.0",
   "type": "module",
   "description": "",
   "source": "public/index.html",
   "bin": {
-    "create-parcel-app": "./bin/generate-boilerplate.js"
+    "create-parcel-react-template": "./bin/generate-boilerplate.js"
   },
   "scripts": {
     "dev": "parcel",
