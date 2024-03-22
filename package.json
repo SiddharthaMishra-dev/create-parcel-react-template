@@ -11,7 +11,16 @@
     "dev": "parcel",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "parcel",
+    "react",
+    "typescript",
+    "tailwind"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SiddharthaMishra-dev/create-parcel-react-template.git"
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
