@@ -1,8 +1,8 @@
 {
   "name": "create-parcel-react-template",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
-  "description": "",
+  "description": "base repository for create-parcel-react-template",
   "source": "public/index.html",
   "bin": {
     "create-parcel-react-template": "./bin/generate-boilerplate.js"
