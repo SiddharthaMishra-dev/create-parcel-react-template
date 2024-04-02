@@ -1,5 +1,3 @@
-import React from "react";
-
 const parcel = String(new URL("/public/parcel.svg", import.meta.url));
 const react = String(new URL("/public/react.svg", import.meta.url));
 
@@ -21,7 +19,10 @@ const App = () => {
               className="h-40 w-40 object-cover object-center"
             />
           </div>
-          <h1 className="text-center text-2xl sm:text-5xl font-bold drop-shadow-2xl">
+          <h1
+            className="text-center text-2xl sm:text-5xl font-bold drop-shadow-2xl"
+            id="main-content"
+          >
             React + Parcel + Typescript
           </h1>
           <h4 className="text-center text-xl sm:text-2xl font-medium text-gray-700">
