@@ -26,7 +26,7 @@ const App = () => {
             React + Parcel + Typescript
           </h1>
           <h4 className="text-center text-xl sm:text-2xl font-medium text-gray-700">
-            Bootstrapped with create-parcel-react-app
+            Bootstrapped with create-parcel-react-template
           </h4>
         </div>
       </div>
